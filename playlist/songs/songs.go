@@ -3,12 +3,13 @@ package songs
 type Song struct {
 	Title  string
 	Artist string
-	Next   *string
+	Next   *Song
 }
 
-func (s *Song) Create(title string, artist string) Song {
-	return Song{
+func Create(title string, artist string) *Song {
+	return &Song{
 		Title:  title,
 		Artist: artist,
+		Next:   nil,
 	}
 }
