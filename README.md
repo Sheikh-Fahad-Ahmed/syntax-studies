@@ -1,6 +1,15 @@
 # go-review
 
-# Character Class Selector
+## Description
+
+A review of Golang with a few simple practical applications
+
+## Programs
+
+1. Character class selector
+2. Playlist
+
+# 1. Character Class Selector
 
 ## Description
 
@@ -15,7 +24,7 @@ A lightweight, terminal-based character class selector where you can also create
 ## How to run
 
 1. Clone the repo
-2. run the app using `go run main.go` command
+2. run the app using `go run characterClass/main.go` command
 
 ## Output
 
@@ -78,5 +87,33 @@ Your attribute: Rage
 
 exit status 1
 
+
+```
+
+# 2. Playlist
+
+## Description
+
+a simple music playlist where you create songs and add them to a playlist
+
+## Features
+
+- Create songs
+- Add them to playlist
+- Play the Songs one by one
+- Skip to Next song on the playlist
+
+## How to run
+
+1. Clone the repo
+2. run the command `go run playlist/main.go`
+
+## Output
+
+```text
+Now playing: Yellow by Coldplay
+Next song is Sweden by C418
+Next song is Drag Path by Twenty one Pilots
+You are at the end of the playlist
 
 ```
