@@ -1,11 +1,13 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"maps"
 	"math"
 	"slices"
 	"time"
+	"unicode/utf8"
 )
 
 func main() {
@@ -83,7 +85,17 @@ func main() {
 	// rangeOverBuiltInTypes()
 
 	// Pointers ----------------------------------
-	pointers()
+	// pointers()
+
+	// String and Runes
+	// stringsAndRunes()
+
+	// Structs
+	// structs()
+
+	// JSON
+	jsonFunc()
+
 }
 
 func values() {
@@ -426,4 +438,155 @@ func pointers() {
 	fmt.Println("zeroptr:", i)
 
 	fmt.Println("Pointer:", &i)
+}
+
+func stringsAndRunes() {
+	a := "hello"
+
+	fmt.Println("len:", len(a))
+
+	const s = "สวัสดี"
+
+	fmt.Println("Len:", len(s))
+
+	for i := 0; i < len(s); i++ {
+		fmt.Printf("%x ", s[i])
+	}
+	fmt.Println()
+
+	fmt.Println("Rune Count:", utf8.RuneCountInString(s))
+
+	for idx, runeValue := range s {
+		fmt.Printf("%#U starts at %d\n", runeValue, idx)
+	}
+
+	fmt.Printf("\nUsing DecodeRuneInString\n")
+	for i, w := 0, 0; i < len(s); i += w {
+		runeValue, width := utf8.DecodeRuneInString(s[i:])
+		fmt.Printf("%#U starts at %d\n", runeValue, i)
+		w = width
+
+		examineRune(runeValue)
+	}
+}
+
+func examineRune(r rune) {
+	if r == 't' {
+		fmt.Println("found tee")
+	} else if r == 'ส' {
+		fmt.Println("found so sua")
+	}
+}
+
+type person struct {
+	name string
+	age  int
+}
+
+func newPerson(name string) *person {
+	return &person{
+		name: name,
+		age:  42,
+	}
+}
+
+func structs() {
+	fmt.Println(person{"bob", 20})
+
+	fmt.Println(person{name: "Alice", age: 30})
+
+	fmt.Println(person{name: "Fred"})
+
+	fmt.Println(&person{name: "Ann", age: 40})
+
+	fmt.Println(newPerson("John"))
+
+	s := person{"Sean", 21}
+	fmt.Println(s.name)
+
+	sp := &s
+	fmt.Println(sp)
+
+	sp.age = 51
+	fmt.Println(s.age)
+
+	dog := struct {
+		name   string
+		isGood bool
+	}{
+		"Rex",
+		true,
+	}
+
+	fmt.Println(dog)
+}
+
+type response1 struct {
+	Page   int
+	Fruits []string
+}
+
+type response2 struct {
+	Page   int      `json:"page"`
+	Fruits []string `json:"fruits"`
+}
+
+func jsonFunc() {
+	bolB, _ := json.Marshal(true)
+	fmt.Println(string(bolB))
+
+	intB, _ := json.Marshal(1)
+	fmt.Println(intB)
+
+	fltB, _ := json.Marshal(3.12)
+	fmt.Println(fltB)
+
+	strB, _ := json.Marshal("gopher")
+	fmt.Println(strB)
+
+	slcD := []string{"apple", "peach", "pear"}
+	slcB, _ := json.Marshal(slcD)
+	fmt.Println(string(slcB))
+
+	mapD := map[string]int{"apple": 5, "lettuce": 3}
+	mapB, _ := json.Marshal(mapD)
+	fmt.Println(string(mapB))
+
+	res1D := &response1{
+		Page:   1,
+		Fruits: []string{"apple", "peach", "pear"},
+	}
+	res1B, _ := json.Marshal(res1D)
+	fmt.Println(string(res1B))
+
+	res2D := &response2{
+		Page:   1,
+		Fruits: []string{"apple", "peach", "pear"},
+	}
+	res2B, _ := json.Marshal(res2D)
+	fmt.Println(string(res2B))
+
+	byt := []byte(`{"num":6.13,"strs":["a","b"]}`)
+
+	var dat map[string]any
+
+	if err := json.Unmarshal(byt, &dat); err != nil {
+		panic(err)
+	}
+	fmt.Println(dat)
+
+	num := dat["num"].(float64)
+	fmt.Println(num)
+
+	strs := dat["strs"].([]interface{})
+	str1 := strs[0].(string)
+	fmt.Println(str1)
+
+	str := `{"page": 1, "fruits": ["apple", "peach"]}`
+	res := response2{}
+	json.Unmarshal([]byte(str), &res)
+	fmt.Println(res)
+	fmt.Println(res.Fruits[1])
+
+	
 }
