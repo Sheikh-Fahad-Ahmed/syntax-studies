@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/Sheikh-Fahad-Ahmed/go-review/playlist/songs"
+	"github.com/Sheikh-Fahad-Ahmed/syntax-studies/go-review/programs/playlist/songs"
 )
 
 type playlist struct {

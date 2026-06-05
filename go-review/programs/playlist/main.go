@@ -1,6 +1,8 @@
 package main
 
-import "github.com/Sheikh-Fahad-Ahmed/go-review/playlist/songs"
+import "github.com/Sheikh-Fahad-Ahmed/syntax-studies/go-review/programs/playlist/songs"
+
+
 
 func main() {
 
