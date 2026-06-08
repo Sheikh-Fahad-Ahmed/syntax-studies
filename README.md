@@ -8,6 +8,7 @@ A review of Golang with a few simple practical applications
 
 1. Character class selector
 2. Playlist
+3. Files-word-count (Concurrently)
 
 # 1. Character Class Selector
 
@@ -116,4 +117,37 @@ Next song is Sweden by C418
 Next song is Drag Path by Twenty one Pilots
 You are at the end of the playlist
 
+```
+
+# 3. Files-Word-Count
+
+## Description
+
+a program to count the total number of words present in multiple files at the same time
+
+## Features
+
+- Concurrently counts words in each text file
+
+## How to run
+
+1. Clone the repo
+2. move to `go-review/programs/files-word-count`
+3. run the command `go run main.go`
+
+## Output
+
+```text
+file4 opened....counting words now..
+file2 opened....counting words now..
+file3 opened....counting words now..
+file1 opened....counting words now..
+file1 closing...total words: 152
+file2 closing...total words: 270
+file3 closing...total words: 304
+file4 closing...total words: 197
+all files opened and closed
+
+
+The sum of words in all the files: 923
 ```
