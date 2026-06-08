@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"flag"
 	"fmt"
 	"maps"
 	"math"
@@ -10,7 +11,7 @@ import (
 	"unicode/utf8"
 )
 
-func main() {
+func learning() {
 	// fmt.Println("Hello, World!")
 
 	// Values  ----------------------------------
@@ -87,14 +88,17 @@ func main() {
 	// Pointers ----------------------------------
 	// pointers()
 
-	// String and Runes
+	// String and Runes ----------------------------------
 	// stringsAndRunes()
 
-	// Structs
+	// Structs ----------------------------------
 	// structs()
 
-	// JSON
-	jsonFunc()
+	// JSON ----------------------------------
+	// jsonFunc()
+
+	// Command-line Flags ----------------------------------
+	flagsFunc()
 
 }
 
@@ -588,5 +592,12 @@ func jsonFunc() {
 	fmt.Println(res)
 	fmt.Println(res.Fruits[1])
 
+}
+
+func flagsFunc() {
+	wordPtr := flag.String("word", "foo", "a string")
 	
+	flag.Parse()
+
+	fmt.Println("word:", *wordPtr)
 }
